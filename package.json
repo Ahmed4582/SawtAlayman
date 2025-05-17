@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "i18n.js": "^0.0.1",
     "i18next": "^25.0.2",
     "lucide-react": "^0.503.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.56.3",
     "react-i18next": "^15.5.1",
+    "react-pageflip": "^2.0.3",
     "react-router-dom": "^7.5.3",
     "react-world-flags": "^1.6.0"
   },

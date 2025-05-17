@@ -19,9 +19,11 @@ const Footer = () => {
     return (
         <footer className="relative bg-white" dir="rtl">
             {/* Islamic Pattern Border */}
-            <div className="w-full h-10 bg-no-repeat bg-cover"
+            <div className="w-full h-12 bg-no-repeat bg-cover"
                 style={{
                     backgroundImage: "url('/assets/img/islamic-pattern.png')",
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
 
                 }}
             />

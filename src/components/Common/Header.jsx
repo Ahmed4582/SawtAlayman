@@ -21,7 +21,6 @@ const Header = () => {
         { title: 'الرئيسية', path: '/' },
         {
             title: 'خدماتنا',
-            path: '/services',
             subItems: [
                 { title: 'القرآن الكريم', path: '/services/quran' },
                 { title: 'أذكار ودعاء', path: '/services/athkar' },
@@ -35,18 +34,21 @@ const Header = () => {
 
     const getLinkClassName = (path) => {
         const isActive = location.pathname === path;
+        // For subpaths, check if the current path starts with the menu item path
+        const isActiveSubpath = location.pathname.startsWith(path) && path !== '/';
 
         return `relative px-3 py-2 text-lg font-medium transition-colors duration-200
-        ${isActive ? 'text-[#004B40]' : 'text-[#04261B]'}
-        group hover:text-[#004B40]
-        flex flex-col items-center`;
+    ${(isActive || isActiveSubpath) ? 'text-[#004B40]' : 'text-[#04261B]'}
+    group hover:text-[#004B40]
+    flex flex-col items-center`;
     };
 
     const getActiveIndicator = (path) => {
         const isActive = location.pathname === path;
-        const isHome = path === '/';
+        // For subpaths, check if the current path starts with the menu item path
+        const isActiveSubpath = location.pathname.startsWith(path) && path !== '/';
 
-        if (isActive && isHome) {
+        if (isActive || isActiveSubpath) {
             return (
                 <svg
                     className="w-4 h-4 text-[#004B40] absolute -bottom-2"
@@ -86,7 +88,12 @@ const Header = () => {
                     {/* Main Link */}
                     <Link
                         to={item.path}
-                        className="text-[#04261B] hover:text-[#004B40] px-3 py-2 text-lg font-medium"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setIsDropdownOpen(!isDropdownOpen);
+                        }}
+                        className="text-[#004B40] hover:text-[#004B40] px-3 py-2 text-lg font-medium"
                     >
                         {item.title}
                     </Link>
@@ -118,7 +125,7 @@ const Header = () => {
 
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                    <div className="absolute right-0 mt-2 w-48 rounded-md font-tajawal shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                         <div className="py-1">
                             {item.subItems.map((subItem, subIndex) => (
                                 <Link
@@ -144,9 +151,9 @@ const Header = () => {
             ${isScrolled ? 'shadow-md' : ''}
         `} dir="rtl">
             {/* Decorative Images */}
-            <div className="absolute left-20 top-0 h-52 w-32 hidden lg:block">
+            <div className="absolute left-20 top-0 h-52 w-32 hidden lg:block  ">
                 <div
-                    className="h-full w-full bg-no-repeat bg-left bg-contain"
+                    className={`h-full ${isScrolled ? 'hidden' : ''} w-full bg-no-repeat bg-left bg-contain`}
                     style={{
                         backgroundImage: "url('/assets/img/left-decoration.png')"
                     }}
@@ -155,7 +162,7 @@ const Header = () => {
 
             <div className="absolute right-20 top-0 h-64 w-32 hidden lg:block">
                 <div
-                    className="h-full w-full bg-no-repeat bg-right bg-contain"
+                    className={`h-full ${isScrolled ? 'hidden' : ''} w-full bg-no-repeat bg-right bg-contain`}
                     style={{
                         backgroundImage: "url('/assets/img/right-decoration.png')"
                     }}
@@ -176,7 +183,7 @@ const Header = () => {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex gap-x-8 items-center justify-between">
+                    <nav className="hidden  md:flex gap-x-8 font-tajawal items-center justify-between">
                         {menuItems.map((item, index) => (
                             <div key={index} className="relative">
                                 {item.subItems ? (
@@ -225,7 +232,7 @@ const Header = () => {
                 {/* Mobile Navigation */}
                 {isOpen && (
                     <div className="md:hidden">
-                        <div className="px-2 pt-2 pb-3 space-y-1">
+                        <div className="px-2 pt-2 pb-3 space-y-1 font-tajawal">
                             {menuItems.map((item, index) => (
                                 <div key={index}>
                                     {item.subItems ? (

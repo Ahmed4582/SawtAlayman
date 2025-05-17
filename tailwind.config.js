@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        tajawal: ['Tajawal', 'sans-serif'],
+        amiri: ['Amiri', 'serif'],
+      },
+    },
   },
   plugins: [],
 }
